@@ -1,0 +1,29 @@
+# Maintainer:
+pkgname=py3-zope-i18nmessageid
+_pyname=zope.i18nmessageid
+pkgver=4.3.1
+pkgrel=0
+pkgdesc="Message Identifiers for internationalization for Python"
+url="http://pypi.python.org/pypi/zope.i18nmessageid"
+arch="all"
+license="ZPL-2.1"
+depends="py3-six"
+checkdepends="py3-nose py3-coverage"
+makedepends="py3-setuptools python3-dev"
+_pypiprefix="${_pyname%${_pyname#?}}"
+source="https://files.pythonhosted.org/packages/source/$_pypiprefix/$_pyname/$_pyname-$pkgver.tar.gz"
+builddir="$srcdir/$_pyname-$pkgver"
+
+build() {
+	python3 setup.py build
+}
+
+check() {
+	python3 setup.py test
+}
+
+package() {
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="3b01c6e25c2f2188e90a16556b263d45f590f61ec22e0ed87980a903109cb3f1c96a5fe5cdea9694d5c7508c5923b0faee0c8387aa947b5ab42720783089cb9f  zope.i18nmessageid-4.3.1.tar.gz"
