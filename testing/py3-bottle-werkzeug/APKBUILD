@@ -1,0 +1,32 @@
+# Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
+# Maintainer: Fabian Affolter <fabian@affolter-engineering.ch>
+pkgname=py3-bottle-werkzeug
+_pyname=bottle-werkzeug
+pkgver=0.1.1
+pkgrel=1
+pkgdesc="Bottle werkzeug plugin"
+url="https://pypi.python.org/pypi/bottle-werkzeug"
+arch="noarch"
+license="MIT"
+depends="py3-bottle py3-werkzeug"
+makedepends="py3-setuptools"
+_pypiprefix="${_pyname%${_pyname#?}}"
+source="https://files.pythonhosted.org/packages/source/$_pypiprefix/$_pyname/$_pyname-$pkgver.tar.gz"
+builddir="$srcdir/$_pyname-$pkgver"
+replaces="py-bottle-werkzeug"
+provides="py-bottle-werkzeug=$pkgver-r$pkgrel"
+options="!check" # upstream tests are difficult to obtain
+
+build() {
+	python3 setup.py build
+}
+
+check() {
+	python3 test.py
+}
+
+package() {
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="13fce3be73caa42c8cbdf437799c1fdb32a6e1ea513055ce9cd53788cea318a6d990b0975b39bcbad3b6fb2994d17d29651603687f59604e81508e61b3b0319a  bottle-werkzeug-0.1.1.tar.gz"
