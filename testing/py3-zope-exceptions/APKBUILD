@@ -13,7 +13,6 @@ makedepends="py3-setuptools python3-dev"
 _pypiprefix="${_pyname%${_pyname#?}}"
 source="https://files.pythonhosted.org/packages/source/$_pypiprefix/$_pyname/$_pyname-$pkgver.tar.gz"
 builddir="$srcdir/$_pyname-$pkgver"
-options="!check" # BOOTSTRAP
 
 build() {
 	python3 setup.py build
