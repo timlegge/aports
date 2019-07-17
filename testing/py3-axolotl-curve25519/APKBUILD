@@ -1,0 +1,30 @@
+# Maintainer: Marian Buschsieweke <marian.buschsieweke@ovgu.de>
+pkgname=py3-axolotl-curve25519
+_pyname=python-axolotl-curve25519
+pkgver=0.4.1b
+_pkgver=0.4.1.post2
+pkgrel=2
+pkgdesc="A python wrapper for curve25519 library with ed25519 signatures"
+url="https://github.com/tgalal/python-axolotl-curve25519"
+arch="all"
+license="GPL-3.0-only"
+makedepends="py3-setuptools python3-dev"
+_pypiprefix="${_pyname%${_pyname#?}}"
+source="https://files.pythonhosted.org/packages/source/$_pypiprefix/$_pyname/$_pyname-$_pkgver.tar.gz"
+builddir="$srcdir"/$_pyname-$_pkgver
+replaces="py-axolotl-curve25519"
+provides="py-axolotl-curve25519=$pkgver-r$pkgrel"
+
+build() {
+	python3 setup.py build
+}
+
+check() {
+	python3 setup.py test
+}
+
+package() {
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="2cd0b8607fd1fa7654a5dd02f4594e9617b0553913a59dda1292867de9f6c2160e4b56ec74f83f3d4ef9259e1c77828dd3cd3f58ecb10076d6c9180c61e7d8ef  python-axolotl-curve25519-0.4.1.post2.tar.gz"
