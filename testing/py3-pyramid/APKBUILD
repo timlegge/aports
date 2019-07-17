@@ -1,0 +1,32 @@
+# Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
+# Maintainer: Fabian Affolter <fabian@affolter-engineering.ch>
+pkgname=py3-pyramid
+_pyname=pyramid
+pkgver=1.10.4
+pkgrel=0
+pkgdesc="The Pyramid Web Framework"
+url="http://www.pylonsproject.org/"
+arch="noarch"
+license="BSD"
+depends="py3-webob py3-repoze-lru py3-venusian py3-chameleon py3-zope-component
+		py3-zope-deprecation py3-zope-configuration py3-translationstring"
+makedepends="python2-dev py-setuptools"
+_pypiprefix="${_pyname%${_pyname#?}}"
+source="https://files.pythonhosted.org/packages/source/$_pypiprefix/$_pyname/$_pyname-$pkgver.tar.gz"
+builddir="$srcdir"/$_pyname-$pkgver
+replaces="py-pyramid"
+provides="py-pyramid=$pkgver-r$pkgrel"
+
+build() {
+	python3 setup.py build
+}
+
+check() {
+	python3 setup.py check
+}
+
+package() {
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="24686ffccc7784eed8fbae1b0aeb2beb331b0403a4143f878eb0cfeacdd58d4ded7628edb784e01df6a230172ed0b3208f3b6e716983f1afc76796b66f742def  pyramid-1.10.4.tar.gz"
