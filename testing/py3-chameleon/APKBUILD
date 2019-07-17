@@ -1,0 +1,31 @@
+# Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
+# Maintainer: Fabian Affolter <fabian@affolter-engineering.ch>
+pkgname=py3-chameleon
+_pyname=Chameleon
+pkgver=3.6.2
+pkgrel=1
+pkgdesc="A Fast Python HTML/XML Template Compiler"
+url="https://chameleon.readthedocs.org"
+arch="noarch"
+license="BSD-3-Clause AND BSD-4-Clause AND Python-2.0 AND ZPL-2.1"
+depends="python3"
+makedepends="py3-setuptools"
+_pypiprefix="${_pyname%${_pyname#?}}"
+source="https://files.pythonhosted.org/packages/source/$_pypiprefix/$_pyname/$_pyname-$pkgver.tar.gz"
+builddir="$srcdir/$_pyname-$pkgver"
+replaces="py-chameleon"
+provides="py-chameleon=$pkgver-r$pkgrel"
+
+build() {
+	python3 setup.py build
+}
+
+check() {
+	python3 setup.py test
+}
+
+package() {
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="0bdc1314cbb37f462de640b89f0e7319025938253df34303c033c8cc903f94f183bb33fc99afdda9ff4cf500c78778df6f5f1f72c0c1607014d6a38117d269e4  Chameleon-3.6.2.tar.gz"
