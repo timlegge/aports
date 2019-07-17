@@ -1,0 +1,30 @@
+# Maintainer: Drew DeVault <sir@cmpwn.com>
+pkgname=py3-amqp
+_pyname=amqp
+pkgver=2.5.0
+pkgrel=0
+pkgdesc="Low-level AMQP client for Python"
+url="https://github.com/celery/py-amqp"
+arch="noarch"
+license="LGPL"
+depends="python3 py3-vine"
+makedepends="py3-setuptools"
+_pypiprefix="${_pyname%${_pyname#?}}"
+source="https://files.pythonhosted.org/packages/source/$_pypiprefix/$_pyname/$_pyname-$pkgver.tar.gz"
+builddir="$srcdir/$_pyname-$pkgver"
+replaces="py-amqp"
+provides="py-amqp=$pkgver-r$pkgrel"
+
+build() {
+	python3 setup.py build
+}
+
+check() {
+	python3 setup.py check
+}
+
+package() {
+	python3 setup.py install --root="$pkgdir" --optimize=1
+}
+
+sha512sums="c0675b85bb4d8bdc7c303bb694153c86eb503fa3c4fe6b6c4dac6b1f3aac2fbfa75a4ec39ea8bbdedc297a6a3407a0a5b560885df761e667e3c0770f5979156b  amqp-2.5.0.tar.gz"
