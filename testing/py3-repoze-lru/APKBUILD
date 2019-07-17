@@ -1,0 +1,32 @@
+# Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
+# Maintainer: Fabian Affolter <fabian@affolter-engineering.ch>
+pkgname=py3-repoze-lru
+_pyname=repoze.lru
+pkgver=0.7
+pkgrel=0
+pkgdesc="A tiny Python LRU cache implementation and decorator"
+url="https://pypi.python.org/pypi/repoze.lru"
+arch="noarch"
+license="BSD-4-Clause"
+depends="python3"
+makedepends="py3-setuptools"
+checkdepends="py3-nose py3-coverage"
+_pypiprefix="${_pyname%${_pyname#?}}"
+source="https://files.pythonhosted.org/packages/source/$_pypiprefix/$_pyname/$_pyname-$pkgver.tar.gz"
+builddir="$srcdir/$_pyname-$pkgver"
+replaces="py-repoze-lru"
+provides="py-repoze-lru=$pkgver-r$pkgrel"
+
+build() {
+	python3 setup.py build
+}
+
+check() {
+	python3 setup.py test
+}
+
+package() {
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="c4d8b015931c4265fa8559f99c9d5016835574b368ebe0d49fe503afe908020b2bf29836606134e00c6c0aa436d52a00bb73d6ab80e98d0802f54bd2e4686476  repoze.lru-0.7.tar.gz"
