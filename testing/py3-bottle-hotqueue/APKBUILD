@@ -1,0 +1,35 @@
+# Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
+# Maintainer: Fabian Affolter <fabian@affolter-engineering.ch>
+pkgname=py3-bottle-hotqueue
+_pyname=bottle_hotqueue
+#_pyname=bottle-hotqueue # TODO: this is the PyPI name
+pkgver=0.2.5
+pkgrel=2
+pkgdesc="Bottle HotQueue plugin"
+url="https://github.com/waawal/bottle_hotqueue"
+arch="noarch !armv7"
+license="MIT"
+depends="py3-bottle py3-hotqueue"
+makedepends="py3-setuptools"
+_pypiprefix="${_pyname%${_pyname#?}}"
+# https://github.com/waawal/bottle_hotqueue/issues/4
+_commit=f21399b63e9c16ad2396b7cd520ef0cda8e5714c
+# TODO: switch to PyPI: https://github.com/waawal/bottle_hotqueue/issues/5
+source="$pkgname-$pkgver.tar.gz::https://github.com/waawal/bottle_hotqueue/archive/$_commit.tar.gz"
+builddir="$srcdir"/$_pyname-$_commit
+replaces="py-bottle-hotqueue"
+provides="py-bottle-hotqueue=$pkgver-r$pkgrel"
+
+build() {
+	python3 setup.py build
+}
+
+check() {
+	python3 test.py
+}
+
+package() {
+	python setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="c43197df2506a621361b618c7654f339b602f7b58375f2802e0e306bc11f70f350771b4f1dcd8654ccf383c0a364d806705b91b43f0ef3b40af3fac60a2370bb  py3-bottle-hotqueue-0.2.5.tar.gz"
