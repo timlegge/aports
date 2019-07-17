@@ -1,0 +1,28 @@
+# Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
+# Maintainer: Fabian Affolter <fabian@affolter-engineering.ch>
+pkgname=py3-bottle-pgsql
+_pyname=bottle-pgsql
+pkgver=0.2
+pkgrel=0
+pkgdesc="Bottle PgSQL integration plugin"
+url="https://github.com/raisoblast/bottle-pgsql"
+arch="noarch"
+license="MIT"
+depends="py3-bottle"
+makedepends="py3-setuptools"
+_pypiprefix="${_pyname%${_pyname#?}}"
+source="https://files.pythonhosted.org/packages/source/$_pypiprefix/$_pyname/$_pyname-$pkgver.tar.gz"
+builddir="$srcdir"/$_pyname-$pkgver
+replaces="py-bottle-pgsql"
+provides="py-bottle-pgsql=$pkgver-r$pkgrel"
+options="!check" # No upstream tests
+
+build() {
+	python3 setup.py build
+}
+
+package() {
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="d45624d5b330be4624cac45a2a631f403679b1fa3799efd2db282ebc89cbc7f89b12c3c128a8be860d700904e420f6a2327a2bb3a18f4b0d490d423c131ef2a3  bottle-pgsql-0.2.tar.gz"
