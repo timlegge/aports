@@ -1,0 +1,28 @@
+# Maintainer:
+pkgname=py3-zope-testing
+_pyname=zope.testing
+pkgver=4.7
+pkgrel=0
+pkgdesc="Zope testing helpers"
+url="http://pypi.python.org/pypi/zope.testing"
+arch="noarch"
+license="ZPL-2.1"
+depends="python3"
+makedepends="py3-setuptools"
+_pypiprefix="${_pyname%${_pyname#?}}"
+source="https://files.pythonhosted.org/packages/source/$_pypiprefix/$_pyname/$_pyname-$pkgver.tar.gz"
+builddir="$srcdir/$_pyname-$pkgver"
+
+build() {
+	python3 setup.py build
+}
+
+check() {
+	python3 setup.py test
+}
+
+package() {
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="cdf87f95196880a0f55c740f6340286bb29e96e9273d0c645bbb50def54a0645cce22d971adba3f15ff57b1021a72749219af83abc4e8fa775fb982d8164791d  zope.testing-4.7.tar.gz"
