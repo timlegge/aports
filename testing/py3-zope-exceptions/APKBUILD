@@ -1,0 +1,30 @@
+# Maintainer:
+pkgname=py3-zope-exceptions
+_pyname=zope.exceptions
+pkgver=4.3
+pkgrel=0
+pkgdesc="Zope Exceptions"
+url="http://pypi.python.org/pypi/zope.exceptions"
+arch="noarch"
+license="ZPL-2.1"
+depends="py3-zope-interface"
+checkdepends="py3-zope-testrunner"
+makedepends="py3-setuptools python3-dev"
+_pypiprefix="${_pyname%${_pyname#?}}"
+source="https://files.pythonhosted.org/packages/source/$_pypiprefix/$_pyname/$_pyname-$pkgver.tar.gz"
+builddir="$srcdir/$_pyname-$pkgver"
+options="!check" # BOOTSTRAP
+
+build() {
+	python3 setup.py build
+}
+
+check() {
+	python3 setup.py test
+}
+
+package() {
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="348c8edb0246bb2035ca5c1bcfaca7d3be2525157e2c9267a59a061c8ba749b364428e3d6a3aa3f967306abd0a319e4d6fa935b7fc35fff3bb53960015505695  zope.exceptions-4.3.tar.gz"
