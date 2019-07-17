@@ -1,0 +1,25 @@
+# Maintainer:
+pkgname=py3-zope-testrunner
+_pyname=zope.testrunner
+pkgver=5.0
+pkgrel=0
+pkgdesc="Zope testrunner script"
+url="http://pypi.python.org/pypi/zope.testrunner"
+arch="noarch"
+license="ZPL-2.1"
+depends="py3-six py3-zope-exceptions py3-zope-interface py3-zope-testing"
+makedepends="py3-setuptools"
+_pypiprefix="${_pyname%${_pyname#?}}"
+source="https://files.pythonhosted.org/packages/source/$_pypiprefix/$_pyname/$_pyname-$pkgver.tar.gz"
+builddir="$srcdir/$_pyname-$pkgver"
+options="!check" # Upstream acknowledges that these tests require magic to work
+
+build() {
+	python3 setup.py build
+}
+
+package() {
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="9422b7ce945f076f6351c3cbd9db799ac892e094038c305c53ffc53c5f5cbe0317fb0e2e84777613be640b42fba37316ff4bb7fca1821c853ad40b6c31ed7762  zope.testrunner-5.0.tar.gz"
