@@ -1,0 +1,29 @@
+# Maintainer:
+pkgname=py3-zope-schema
+_pyname=zope.schema
+pkgver=4.9.3
+pkgrel=0
+pkgdesc="Message Identifiers for internationalization for Python"
+url="http://pypi.python.org/pypi/zope.schema"
+arch="noarch"
+license="ZPL-2.1"
+depends="py3-zope-interface py3-zope-event"
+checkdepends="py3-zope-i18nmessageid py3-zope-testing py3-zope-testrunner"
+makedepends="py3-setuptools"
+_pypiprefix="${_pyname%${_pyname#?}}"
+source="https://files.pythonhosted.org/packages/source/$_pypiprefix/$_pyname/$_pyname-$pkgver.tar.gz"
+builddir="$srcdir/$_pyname-$pkgver"
+
+build() {
+	python3 setup.py build
+}
+
+check() {
+	python3 setup.py test
+}
+
+package() {
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="63cdf431ba2aa79eb5771f99cf0a60932182edae00a63873f96cc02c70f826d23c72ecabd736d0f6439d63af900b4ee2c05246eabe0b1689b01bc15a09648504  zope.schema-4.9.3.tar.gz"
