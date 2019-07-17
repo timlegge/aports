@@ -1,0 +1,41 @@
+# Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
+# Maintainer: Fabian Affolter <fabian@affolter-engineering.ch>
+pkgname=py3-bottle-redis
+_pyname=bottle-redis
+pkgver=0.2.3
+pkgrel=0
+pkgdesc="Bottle redis plugin"
+url="https://github.com/bottlepy/bottle-redis"
+arch="noarch"
+license="MIT"
+depends="py3-bottle py3-redis"
+checkdepends="redis"
+makedepends="py3-setuptools"
+_pypiprefix="${_pyname%${_pyname#?}}"
+# TODO: Use PyPI source https://github.com/bottlepy/bottle-redis/issues/15
+source="$pkgname-$pkgver.tar.gz::https://github.com/bottlepy/bottle-redis/archive/$pkgver.tar.gz"
+builddir="$srcdir/$_pyname-$pkgver"
+replaces="py-bottle-redis"
+provides="py-bottle-redis=$pkgver-r$pkgrel"
+
+build() {
+	python3 setup.py build
+}
+
+check() {
+	(
+		redis-server - & <<-EOF
+		bind 127.0.0.1
+		port 6379
+		EOF
+		redis=$!
+		trap "kill $redis" EXIT
+		python3 test.py
+	)
+}
+
+package() {
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="98b56dc1f6a20ca1dae0e9a161a6e4a6b902eadab349a24ccc2f1ec787fb13b42fde4ca366866f1afba551f302da0e572728ed329d6a21952bbc877be3ed5557  py3-bottle-redis-0.2.3.tar.gz"
