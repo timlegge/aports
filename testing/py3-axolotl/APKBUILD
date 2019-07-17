@@ -1,0 +1,31 @@
+# Maintainer: Marian Buschsieweke <marian.buschsieweke@ovgu.de>
+pkgname=py3-axolotl
+_pyname=python-axolotl
+pkgver=0.2.3
+pkgrel=0
+pkgdesc="Python port of libsignal-protocol-java"
+url="https://github.com/tgalal/python-axolotl"
+arch="noarch"
+license="GPL-3.0-only"
+depends="py3-crypto py3-protobuf py3-axolotl-curve25519"
+makedepends="py3-setuptools python3-dev openssl-dev"
+checkdepends="py3-cryptography py3-cparser"
+_pypiprefix="${_pyname%${_pyname#?}}"
+source="https://files.pythonhosted.org/packages/source/$_pypiprefix/$_pyname/$_pyname-$pkgver.tar.gz"
+builddir="$srcdir"/$_pyname-$pkgver
+replaces="py-axolotl"
+provides="py-axolotl=$pkgver-r$pkgrel"
+
+build() {
+	python3 setup.py build
+}
+
+check() {
+	python3 setup.py test
+}
+
+package() {
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="484a13a0117fcafabc297c48bfac33039b6ed3986165816cb92bbaba7472fb2616de71246c2482c0170002c9b61ef38f84ff28d8841151730f97b34a5da2e31f  python-axolotl-0.2.3.tar.gz"
