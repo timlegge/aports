@@ -1,7 +1,7 @@
 # Contributor:
 # Maintainer: Kristóf Jakab <jakab.kristof@balasys.hu>
-pkgname=py3-py-radix
-_pkgname=py-radix
+pkgname=py3-radix
+_pyname=py-radix
 pkgver=0.10.0
 pkgrel=2
 pkgdesc="An implementation of a radix tree for Python"
@@ -11,8 +11,8 @@ license="BSD-4-Clause AND ISC"
 depends="python3"
 makedepends="py3-setuptools python3-dev"
 checkdepends="py3-coverage py3-nose"
-source="$_pkgname-$pkgver.tar.gz::https://github.com/mjschultz/py-radix/archive/v$pkgver.tar.gz"
-builddir="$srcdir/$_pkgname-$pkgver"
+source="$_pyname-$pkgver.tar.gz::https://github.com/mjschultz/py-radix/archive/v$pkgver.tar.gz"
+builddir="$srcdir/$_pyname-$pkgver"
 
 replaces=py-radix # Backwards compatibility
 provides=py-radix=$pkgver-r$pkgrel # Backwards compatibility
