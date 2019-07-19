@@ -1,21 +1,21 @@
 # Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
 # Maintainer: Fabian Affolter <fabian@affolter-engineering.ch>
 pkgname=py3-rarfile
-_pkgname=rarfile
+_pyname=rarfile
 pkgver=3.0
 pkgrel=3
 pkgdesc="A RAR archive reader"
-options="!check" # 3 tests fail
 url="https://github.com/markokr/rarfile"
 arch="noarch"
 license="ISC"
 makedepends="py3-setuptools"
 checkdepends="py3-nose unrar"
-source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
-builddir="$srcdir"/$_pkgname-$pkgver
-
+_pypiprefix="${_pyname%${_pyname#?}}"
+source="https://files.pythonhosted.org/packages/source/$_pypiprefix/$_pyname/$_pyname-$pkgver.tar.gz"
+builddir="$srcdir"/$_pyname-$pkgver
 replaces="py-rarfile" # Backwards compatibility
 provides="py-rarfile=$pkgver-r$pkgrel" # Backwards compatibility
+options="!check" # 3 tests fail
 
 build() {
 	python3 setup.py build
