@@ -1,0 +1,35 @@
+# Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
+# Maintainer: Fabian Affolter <fabian@affolter-engineering.ch>
+pkgname=py3-redmine
+_pyname=python-redmine
+pkgver=2.2.1
+pkgrel=0
+pkgdesc="A simple library for communicating with redmine"
+url="https://github.com/maxtepkeev/python-redmine"
+arch="noarch"
+license="Apache-2.0"
+depends="py3-requests"
+makedepends="py3-setuptools"
+_pypiprefix="${_pyname%${_pyname#?}}"
+# PyPI doesn't provides tests, but github repo does
+# https://github.com/maxtepkeev/python-redmine/issues/229
+# TODO: swap with PyPI
+#source="https://files.pythonhosted.org/packages/source/$_pypiprefix/$_pyname/$_pyname-$pkgver.tar.gz"
+source="$_pyname-$pkgver.tar.gz::https://github.com/maxtepkeev/python-redmine/archive/v$pkgver.tar.gz"
+builddir="$srcdir"/$_pyname-$pkgver
+replaces="py-redmine"
+provides="py-redmine=$pkgver-r$pkgrel"
+
+build() {
+	python3 setup.py build
+}
+
+check() {
+	python3 setup.py check
+}
+
+package() {
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="95d137f9652964e6dcaec72bd13e1fe8e6771d9864972252ade700da27e1f3e6cb67179a9a8fc35e32559a481fab52e6df14b89d6e87bb17f36c6fb7f380c07b  python-redmine-2.2.1.tar.gz"
