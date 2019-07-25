@@ -1,0 +1,37 @@
+# Contributor: André Klitzing <aklitzing@gmail.com>
+# Maintainer: André Klitzing <aklitzing@gmail.com>
+pkgname=py3-h2
+_pkgname=hyper-h2
+pkgver=3.1.0
+pkgrel=0
+replaces="py-h2"
+provides="py-h2=$pkgver-r$pkgrel"
+pkgdesc="HTTP/2 State-Machine based protocol implementation"
+options="!check"
+url="https://python-hyper.org/projects/h2/"
+arch="noarch"
+license="MIT"
+depends="python3"
+makedepends="python3-dev"
+checkdepends="py-hypothesis pytest pytest-cov pytest-xdist"
+source="$pkgname-$pkgver.tar.gz::https://github.com/python-hyper/$_pkgname/archive/v$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+build() {
+	python3 setup.py build || return 1
+}
+
+package() {
+	mkdir -p "$pkgdir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+check() {
+	# Not enabled
+	# ERROR: py-h2: check failed
+	# ImportError while loading conftest '/home/tim/aports/testing/py-h2/src/hyper-h2-3.0.0/test/conftest.py'.
+	#   ModuleNotFoundError: No module named 'hyperframe'
+	make test
+}
+
+sha512sums="b24357e22cec849c4050c77488cf9fd6f50fe5091553c3efc5e6d5c719bc15fd1d89bb9fddee06e1b9815c37100d9f5da798921f10887a9f03ec1b9da736ef8d  py3-h2-3.1.0.tar.gz"
