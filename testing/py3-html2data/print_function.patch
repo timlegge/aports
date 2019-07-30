@@ -1,0 +1,11 @@
+--- html2data-0.4.3/setup.py
++++ html2data-0.4.3/setup.py
+@@ -3,7 +3,7 @@
+ from setuptools import setup
+ 
+ def read(fname):
+-    print os.path.join(os.path.dirname(__file__), fname)
++    print (os.path.join(os.path.dirname(__file__), fname))
+     return open(os.path.join(os.path.dirname(__file__), fname)).read()
+ 
+ setup(

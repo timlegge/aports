@@ -1,0 +1,36 @@
+# Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
+# Maintainer: Fabian Affolter <fabian@affolter-engineering.ch>
+pkgname=py3-html2data
+_pkgname=html2data
+pkgver=0.4.3
+pkgrel=0
+replaces="py2-html2data"
+provides="py-html2data=$pkgver-r$pkgrel"
+pkgdesc="A Python transformer for HTML file or URL to structured data"
+url="https://github.com/dperezrada/html2data"
+arch="noarch"
+license="BSD"
+depends="python3 py3-lxml py3-httplib2"
+checkdepends="py3-nose py3-ludibrio"
+makedepends="python3-dev py3-setuptools"
+options="!check"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz
+	print_function.patch"
+builddir="$srcdir/$_pkgname-$pkgver"
+
+check() {
+	#  ludibrio module is python3
+	PYTHONPATH="${PWD}/build/lib" nosetests
+}
+
+build() {
+	python3 setup.py build || return 1
+}
+
+package() {
+	mkdir -p "$pkgdir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir" || return 1
+}
+
+sha512sums="b001ddc229735934283e173ad3b55335d02b12524a4a7487ee505ad09a9b8d23d9c960f3e4324df1b1082fa9b18f007571a79ef3d28e7170013435f1689e567c  html2data-0.4.3.tar.gz
+847b140fde1f66a1ff5fa16ff4f6b075967dfbae5d73c2b052fd3922d30682f2c77cd134fd427326fa05aba5e761e1556fd519f503770d0e5c57d42f28411be3  print_function.patch"
