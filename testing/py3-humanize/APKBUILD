@@ -1,0 +1,29 @@
+# Contributor: Thomas Boerger <thomas@webhippie.de>
+# Maintainer: Thomas Boerger <thomas@webhippie.de>
+pkgname=py3-humanize
+_pkgname=humanize
+pkgver=0.5.1
+pkgrel=4
+replaces="py2-humanize"
+provides="py-humanize=$pkgver-r$pkgrel"
+pkgdesc="Python humanize functions"
+url="https://pypi.python.org/pypi/humanize"
+arch="noarch"
+license="MIT"
+makedepends="py3-setuptools"
+options="!check"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+builddir="$srcdir"/$_pkgname-$pkgver
+
+build() {
+	python3 setup.py build || return 1
+}
+
+package() {
+	mkdir -p "$pkgdir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+#check() Release version does not include tests
+
+sha512sums="2727268d9fc7b393228f7eb9e71a5c881988ec56e265ddf83613fe57116da3aaad70d2417db4cef8a8c40cb73753eb2c2bd775d3cd25c2de751cb61373f0a551  humanize-0.5.1.tar.gz"
