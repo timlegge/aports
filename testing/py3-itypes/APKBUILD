@@ -1,0 +1,39 @@
+# Contributor: Leonardo Arena <rnalrd@alpinelinux.org>
+# Maintainer: Leonardo Arena <rnalrd@alpinelinux.org>
+pkgname=py3-itypes
+_pkgreal=itypes
+pkgver=1.1.0
+pkgrel=2
+pkgdesc="Basic immutable container types for Python"
+replaces="py-itypes"
+provides="py-itypes=$pkgver-r$pkgrel"
+url="https://github.com/tomchristie/itypes"
+arch="noarch"
+license="BSD"
+depends="python3"
+checkdepends="python3-dev py3-pytest"
+makedepends="py3-setuptools"
+source="$pkgname-$pkgver.tar.gz::https://github.com/tomchristie/itypes/archive/$pkgver.tar.gz
+	disable-flake8.patch
+	collections.abc.patch"
+builddir="$srcdir/$_pkgreal-$pkgver"
+
+build() {
+	python3 setup.py build
+}
+
+package() {
+	PYTHONPATH=$pkgdir`python3 -c "import site; print(site.getsitepackages()[0])"` \
+	python3 setup.py install \
+		--prefix=/usr \
+		--root="$pkgdir" \
+		--single-version-externally-managed
+}
+
+check() {
+	python3 runtests
+}
+
+sha512sums="2f6dd5d655f1031059df8dcfd0a2f76875796a800144e887fb66cb5585949097edb6b9f5e973de2280f43cfeb25ab99d3ca428372fe239c8cd70f385304bcdd7  py3-itypes-1.1.0.tar.gz
+71421f34cf7c4303a2bb8dbbe48d7098f183ce41ed7bf454efa199d031a88c54c84a93eb84d0fa14b8231086709d2949eec7b6bbdb55af7aae4d62a734056d69  disable-flake8.patch
+c54be2c43ffa0b576bb34dbe1e8d8fa57616cbf5438f3d8b50da152907ed9cf98d81005738273899260876d8dc17daf847fceff36797c6dd515ea62ac004ec8f  collections.abc.patch"

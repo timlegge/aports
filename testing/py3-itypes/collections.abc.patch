@@ -1,0 +1,9 @@
+--- itypes-1.1.0/itypes.py.orig
++++ itypes-1.1.0/itypes.py
+@@ -1,5 +1,5 @@
+ # coding: utf-8
+-from collections import Mapping, Sequence
++from collections.abc import Mapping, Sequence
+ 
+ 
+ __version__ = '1.1.0'
