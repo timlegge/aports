@@ -1,0 +1,13 @@
+diff --git a/lib/Net/SAML2.pm b/lib/Net/SAML2.pm
+index 4abd340..5c346da 100644
+--- a/lib/Net/SAML2.pm
++++ b/lib/Net/SAML2.pm
+@@ -4,7 +4,7 @@ use warnings;
+ 
+ require 5.008_001;
+ 
+-our $VERSION = '0.17_7';
++our $VERSION = '0.19.05';
+ $VERSION = eval $VERSION;
+ 
+ =head1 NAME
